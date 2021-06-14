@@ -1,0 +1,19 @@
+{
+    "a":8.0,
+    "nk":20,
+    "nstep_cyc":500,
+    "npulse":1,
+    "fint":[3e11],
+    "wlen":[3200],
+    "cep":[0],
+    "envelope":["sin2"],
+    "ncyc_env":[5],
+    "crystal":{
+	"x":1.0,
+	"y":2.0
+    },
+    "laser":{
+	"wlen":1.0,
+	"y":2.0
+    }
+}

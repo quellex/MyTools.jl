@@ -1,0 +1,23 @@
+{
+    "crystal":{
+	"a":8.0,
+	"nk":20,
+	"nb":5,
+	"vlx_type":"SoftCoulomb",
+	"SoftCoulomb":{
+	    "nI":2,
+	    "xI":[0.2,0.8],
+	    "zI":[1,1],
+	    "alphaI":[1,1],
+	    "ncell":100
+	}
+    },
+    "laser":{
+	"npulse":1,
+	"fint":[3e11],
+	"wlen":[3200],
+	"cep":[0],
+	"envelope":["sin2"],
+	"ncyc_env":[5],
+    }
+}
