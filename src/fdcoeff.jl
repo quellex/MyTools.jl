@@ -31,7 +31,7 @@ cycindex(i,n) = (i + n - 1)%n + 1
 function makefd1mat(n::Integer, dh, order = 2; bc = :Zero)
 	@assert order in Set([2,4,6,8])
 	@assert bc in Set([:Zero, :Periodic])
-	mat = zeros(typeof(dh), (n, n))
+	mat = zeros(typeof(float(dh)), (n, n))
 	m = div(order, 2)
 	if bc == :Zero
 		for i in 1:n
@@ -60,7 +60,7 @@ end
 function makefd2mat(n::Integer, dh, order = 2; bc = :Zero)
 	@assert order in Set([2,4,6,8])
 	@assert bc in Set([:Zero, :Periodic])
-	mat = zeros(typeof(dh), (n, n))
+	mat = zeros(typeof(float(dh)), (n, n))
 	m = div(order, 2)
 	if bc == :Zero
 		for i in 1:n
