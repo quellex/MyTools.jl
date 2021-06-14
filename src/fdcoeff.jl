@@ -1,4 +1,3 @@
-using OffsetArrays
 const fdc1_2 = [0, 1/2]
 const fdc1_4 = [0, 2/3, -1/12]
 const fdc1_6 = [0, 3/4, -3/20, 1/60 ]
@@ -21,7 +20,7 @@ function init!(fdcoeff1, fdcoeff2)
 			tmp1[i + 1 + k] =  fdc1[i][k+1]
 			tmp1[i + 1 - k] = -fdc1[i][k+1]
 			tmp2[i + 1 + k] =  fdc2[i][k+1]
-			tmp2[i + 1 - k] = -fdc2[i][k+1]
+			tmp2[i + 1 - k] =  fdc2[i][k+1]
 		end
 		fdcoeff1[i] = OffsetVector(tmp1, -i:i)
 		fdcoeff2[i] = OffsetVector(tmp2, -i:i)

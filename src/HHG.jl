@@ -1,4 +1,3 @@
-using FFTW
 function HHG(f::TVF) where TVF<:AbstractVector{<:AbstractFloat}
 	n = length(f)
 	spec = fft(f)
