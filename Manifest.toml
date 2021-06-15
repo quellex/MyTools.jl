@@ -109,9 +109,9 @@ uuid = "ca575930-c2e3-43a9-ace4-1e988b2c1908"
 
 [[OffsetArrays]]
 deps = ["Adapt"]
-git-tree-sha1 = "1381a7142eefd4cd12f052a4d2d790fe21bd1d55"
+git-tree-sha1 = "e436bb81d2ce4f01fb02374c4410e5a9229c85f9"
 uuid = "6fe1bfb0-de20-5000-8ca7-80f57d26f881"
-version = "1.9.2"
+version = "1.10.0"
 
 [[Pkg]]
 deps = ["Artifacts", "Dates", "Downloads", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "REPL", "Random", "SHA", "Serialization", "TOML", "Tar", "UUIDs", "p7zip_jll"]
