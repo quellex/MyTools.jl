@@ -1,11 +1,11 @@
 const fdc1_2 = [0, 1/2]
 const fdc1_4 = [0, 2/3, -1/12]
-const fdc1_6 = [0, 3/4, -3/20, 1/60 ]
-const fdc1_8 = [0, 4/5, -1/5 , 4/105, -1/280]
+const fdc1_6 = [0, 3/4, -3/20,1/60 ]
+const fdc1_8 = [0, 4/5, -1/5 ,4/105, -1/280]
 const fdc2_2 = [-2, 1]
-const fdc2_4 = [-5/2,    4/3, -1/12]
-const fdc2_6 = [-49/18 , 3/2, -3/20, 1/90]
-const fdc2_8 = [-205/72, 8/5, -1/5,  8/315, -1/560]
+const fdc2_4 = [-5/2,    4/3,-1/12]
+const fdc2_6 = [-49/18 , 3/2,-3/20, 1/90]
+const fdc2_8 = [-205/72, 8/5,-1/5,  8/315, -1/560]
 const fdc1 = [fdc1_2, fdc1_4, fdc1_6, fdc1_8]
 const fdc2 = [fdc2_2, fdc2_4, fdc2_6, fdc2_8]
 fdcoeff1 = Vector{OffsetVector{Float64, Vector{Float64}}}(undef, 4)
@@ -28,6 +28,64 @@ function init!(fdcoeff1, fdcoeff2)
 end
 init!(fdcoeff1, fdcoeff2)
 cycindex(i,n) = (i + n - 1)%n + 1
+function dfdt(f::TVF, dh::T; order = 2, bc = :Zero)where {T, TVF<:AbstractVector{T}}
+	@assert order in Set([2,4,6,8])
+	@assert bc in Set([:Zero, :Periodic])
+	n = length(f)
+	m = div(order, 2)
+	g = similar(f)
+	if bc == :Zero
+		for i in 1:n
+			for k in 1:m
+				g[i] = fdcoeff1[m][0]*f[i]
+				if i + k ≤ n
+					g[i] += fdcoeff1[m][ k]*f[i+k]
+				end
+				if 1 ≤ i - k
+					g[i] += fdcoeff1[m][-k]*f[i-k]
+				end
+			end
+		end
+	else
+		for i in 1:n
+			g[i] = fdcoeff1[m][0]*f[i]
+			for k in 1:m
+				g[i] += fdcoeff1[m][ k]*f[cycindex(i + k, n)] + fdcoeff1[m][-k]*f[cycindex(i - k, n)]
+			end
+		end
+	end
+	g ./= dh
+	return g
+end
+function d2fdt(f::TVF, dh::T; order = 2, bc = :Zero)where {T, TVF<:AbstractVector{T}}
+	@assert order in Set([2,4,6,8])
+	@assert bc in Set([:Zero, :Periodic])
+	n = length(f)
+	m = div(order, 2)
+	g = similar(f)
+	if bc == :Zero
+		for i in 1:n
+			for k in 1:m
+				g[i] = fdcoeff2[m][0]*f[i]
+				if i + k ≤ n
+					g[i] += fdcoeff2[m][ k]*f[i+k]
+				end
+				if 1 ≤ i - k
+					g[i] += fdcoeff2[m][-k]*f[i-k]
+				end
+			end
+		end
+	else
+		for i in 1:n
+			g[i] = fdcoeff2[m][0]*f[i]
+			for k in 1:m
+				g[i] += fdcoeff2[m][ k]*f[cycindex(i + k, n)] + fdcoeff2[m][-k]*f[cycindex(i - k, n)]
+			end
+		end
+	end
+	g ./= dh^2
+	return g
+end
 function makefd1mat(n::Integer, dh, order = 2; bc = :Zero)
 	@assert order in Set([2,4,6,8])
 	@assert bc in Set([:Zero, :Periodic])
