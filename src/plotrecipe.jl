@@ -22,7 +22,7 @@ using Measurements
 	l4 = Dict(:color => cp[3], :linestyle => :dashdot)
 	l5 = Dict(:color => cp[4], :linestyle => :dashdotdot)
 	function set()
-		default(size=(600, 400), foreground_color_legend=nothing, margin=3Plots.mm, linewidth=1.5, legendtitlefontsize=10.0)
+		default(size=(600, 400), foreground_color_legend=nothing, margin=3Plots.mm, linewidth=1.5, legendtitlefontsize=10.0, minorgrid = true)
 	end
 end
 # %%
