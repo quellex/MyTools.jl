@@ -23,6 +23,8 @@ using Measurements
 	l5 = Dict(:color => cp[4], :linestyle => :dashdotdot)
 	function set()
 		default(size=(600, 400), foreground_color_legend=nothing, margin=3Plots.mm, linewidth=1.5, legendtitlefontsize=10.0, minorgrid = true)
+		default(:bglegend,plot_color(default(:bg), 0.2))
+		default(:fglegend,plot_color(default(:bg), 0.2))
 	end
 end
 # %%
